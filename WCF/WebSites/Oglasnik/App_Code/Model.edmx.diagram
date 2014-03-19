@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a625ca9dc74f4537acdd7d4ac5a82f35" Name="Diagram1">
+        <EntityTypeShape EntityType="bazaModel.kategorija" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaModel.komentar" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaModel.korisnik" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaModel.oglas" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaModel.poruka" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaModel.strucnost" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bazaModel.tutor" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="bazaModel.fk_oglas_kategorija" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaModel.fk_komentar_korisnik" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaModel.fk_komentar_oglas" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaModel.fk_poruka_korisnik" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaModel.fk_oglas_strucnost" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaModel.fk_oglas_tutor" ManuallyRouted="false" />
+        <AssociationConnector Association="bazaModel.fk_poruka_tutor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

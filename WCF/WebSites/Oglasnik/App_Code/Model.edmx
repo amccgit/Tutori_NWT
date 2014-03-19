@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bazaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="bazaModelStoreContainer">
+          <EntitySet Name="kategorija" EntityType="bazaModel.Store.kategorija" store:Type="Tables" Schema="baza" />
+          <EntitySet Name="komentar" EntityType="bazaModel.Store.komentar" store:Type="Tables" Schema="baza" />
+          <EntitySet Name="korisnik" EntityType="bazaModel.Store.korisnik" store:Type="Tables" Schema="baza" />
+          <EntitySet Name="oglas" EntityType="bazaModel.Store.oglas" store:Type="Tables" Schema="baza" />
+          <EntitySet Name="poruka" EntityType="bazaModel.Store.poruka" store:Type="Tables" Schema="baza" />
+          <EntitySet Name="strucnost" EntityType="bazaModel.Store.strucnost" store:Type="Tables" Schema="baza" />
+          <EntitySet Name="tutor" EntityType="bazaModel.Store.tutor" store:Type="Tables" Schema="baza" />
+          <AssociationSet Name="fk_komentar_korisnik" Association="bazaModel.Store.fk_komentar_korisnik">
+            <End Role="korisnik" EntitySet="korisnik" />
+            <End Role="komentar" EntitySet="komentar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_komentar_oglas" Association="bazaModel.Store.fk_komentar_oglas">
+            <End Role="oglas" EntitySet="oglas" />
+            <End Role="komentar" EntitySet="komentar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_oglas_kategorija" Association="bazaModel.Store.fk_oglas_kategorija">
+            <End Role="kategorija" EntitySet="kategorija" />
+            <End Role="oglas" EntitySet="oglas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_oglas_strucnost" Association="bazaModel.Store.fk_oglas_strucnost">
+            <End Role="strucnost" EntitySet="strucnost" />
+            <End Role="oglas" EntitySet="oglas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_oglas_tutor" Association="bazaModel.Store.fk_oglas_tutor">
+            <End Role="tutor" EntitySet="tutor" />
+            <End Role="oglas" EntitySet="oglas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_poruka_korisnik" Association="bazaModel.Store.fk_poruka_korisnik">
+            <End Role="korisnik" EntitySet="korisnik" />
+            <End Role="poruka" EntitySet="poruka" />
+          </AssociationSet>
+          <AssociationSet Name="fk_poruka_tutor" Association="bazaModel.Store.fk_poruka_tutor">
+            <End Role="tutor" EntitySet="tutor" />
+            <End Role="poruka" EntitySet="poruka" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="kategorija">
+          <Key>
+            <PropertyRef Name="idkategorija" />
+          </Key>
+          <Property Name="idkategorija" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nazivKategorije" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="opis" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="komentar">
+          <Key>
+            <PropertyRef Name="idkomentar" />
+          </Key>
+          <Property Name="idkomentar" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="tekst" Type="text" Nullable="false" />
+          <Property Name="datumKreiranja" Type="date" Nullable="false" />
+          <Property Name="datumAzuriranja" Type="date" Nullable="false" />
+          <Property Name="korisnik_idkorisnika" Type="int" Nullable="false" />
+          <Property Name="oglas_idoglasa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="korisnik">
+          <Key>
+            <PropertyRef Name="idkorisnik" />
+          </Key>
+          <Property Name="idkorisnik" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="prezime" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="username" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="profil" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="telefon" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="boraviste" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="oglas">
+          <Key>
+            <PropertyRef Name="idoglas" />
+          </Key>
+          <Property Name="idoglas" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="tekst" Type="text" Nullable="false" />
+          <Property Name="datumKreiranja" Type="date" Nullable="false" />
+          <Property Name="datumAzuriranja" Type="date" Nullable="false" />
+          <Property Name="tutor_idtutor" Type="int" Nullable="false" />
+          <Property Name="kategorija_idkategorija" Type="int" Nullable="false" />
+          <Property Name="cijena" Type="int" Nullable="false" />
+          <Property Name="portret" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="strucnost_idstrucnost" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="poruka">
+          <Key>
+            <PropertyRef Name="idporuka" />
+          </Key>
+          <Property Name="idporuka" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="tekst" Type="date" Nullable="false" />
+          <Property Name="datum" Type="int" Nullable="false" />
+          <Property Name="korisnik_idkorisnik" Type="int" Nullable="false" />
+          <Property Name="tutor_idtutor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="strucnost">
+          <Key>
+            <PropertyRef Name="idstrucnost" />
+          </Key>
+          <Property Name="idstrucnost" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="iskustvo" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="tutor">
+          <Key>
+            <PropertyRef Name="idtutor" />
+          </Key>
+          <Property Name="idtutor" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="prezime" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="kvalifikacija" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="username" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="profil" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="telefon" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="boraviste" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="opis" Type="text" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_komentar_korisnik">
+          <End Role="korisnik" Type="bazaModel.Store.korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="komentar" Type="bazaModel.Store.komentar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="korisnik">
+              <PropertyRef Name="idkorisnik" />
+            </Principal>
+            <Dependent Role="komentar">
+              <PropertyRef Name="korisnik_idkorisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_komentar_oglas">
+          <End Role="oglas" Type="bazaModel.Store.oglas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="komentar" Type="bazaModel.Store.komentar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oglas">
+              <PropertyRef Name="idoglas" />
+            </Principal>
+            <Dependent Role="komentar">
+              <PropertyRef Name="oglas_idoglasa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_oglas_kategorija">
+          <End Role="kategorija" Type="bazaModel.Store.kategorija" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="oglas" Type="bazaModel.Store.oglas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategorija">
+              <PropertyRef Name="idkategorija" />
+            </Principal>
+            <Dependent Role="oglas">
+              <PropertyRef Name="kategorija_idkategorija" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_oglas_strucnost">
+          <End Role="strucnost" Type="bazaModel.Store.strucnost" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="oglas" Type="bazaModel.Store.oglas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strucnost">
+              <PropertyRef Name="idstrucnost" />
+            </Principal>
+            <Dependent Role="oglas">
+              <PropertyRef Name="strucnost_idstrucnost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_oglas_tutor">
+          <End Role="tutor" Type="bazaModel.Store.tutor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="oglas" Type="bazaModel.Store.oglas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tutor">
+              <PropertyRef Name="idtutor" />
+            </Principal>
+            <Dependent Role="oglas">
+              <PropertyRef Name="tutor_idtutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_poruka_korisnik">
+          <End Role="korisnik" Type="bazaModel.Store.korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="poruka" Type="bazaModel.Store.poruka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="korisnik">
+              <PropertyRef Name="idkorisnik" />
+            </Principal>
+            <Dependent Role="poruka">
+              <PropertyRef Name="korisnik_idkorisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_poruka_tutor">
+          <End Role="tutor" Type="bazaModel.Store.tutor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="poruka" Type="bazaModel.Store.poruka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tutor">
+              <PropertyRef Name="idtutor" />
+            </Principal>
+            <Dependent Role="poruka">
+              <PropertyRef Name="tutor_idtutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bazaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="bazaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="kategorija" EntityType="bazaModel.kategorija" />
+          <EntitySet Name="komentar" EntityType="bazaModel.komentar" />
+          <EntitySet Name="korisnik" EntityType="bazaModel.korisnik" />
+          <EntitySet Name="oglas" EntityType="bazaModel.oglas" />
+          <EntitySet Name="poruka" EntityType="bazaModel.poruka" />
+          <EntitySet Name="strucnost" EntityType="bazaModel.strucnost" />
+          <EntitySet Name="tutor" EntityType="bazaModel.tutor" />
+          <AssociationSet Name="fk_oglas_kategorija" Association="bazaModel.fk_oglas_kategorija">
+            <End Role="kategorija" EntitySet="kategorija" />
+            <End Role="oglas" EntitySet="oglas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_komentar_korisnik" Association="bazaModel.fk_komentar_korisnik">
+            <End Role="korisnik" EntitySet="korisnik" />
+            <End Role="komentar" EntitySet="komentar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_komentar_oglas" Association="bazaModel.fk_komentar_oglas">
+            <End Role="oglas" EntitySet="oglas" />
+            <End Role="komentar" EntitySet="komentar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_poruka_korisnik" Association="bazaModel.fk_poruka_korisnik">
+            <End Role="korisnik" EntitySet="korisnik" />
+            <End Role="poruka" EntitySet="poruka" />
+          </AssociationSet>
+          <AssociationSet Name="fk_oglas_strucnost" Association="bazaModel.fk_oglas_strucnost">
+            <End Role="strucnost" EntitySet="strucnost" />
+            <End Role="oglas" EntitySet="oglas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_oglas_tutor" Association="bazaModel.fk_oglas_tutor">
+            <End Role="tutor" EntitySet="tutor" />
+            <End Role="oglas" EntitySet="oglas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_poruka_tutor" Association="bazaModel.fk_poruka_tutor">
+            <End Role="tutor" EntitySet="tutor" />
+            <End Role="poruka" EntitySet="poruka" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="kategorija">
+          <Key>
+            <PropertyRef Name="idkategorija" />
+          </Key>
+          <Property Name="idkategorija" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazivKategorije" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="opis" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="oglas" Relationship="bazaModel.fk_oglas_kategorija" FromRole="kategorija" ToRole="oglas" />
+        </EntityType>
+        <EntityType Name="komentar">
+          <Key>
+            <PropertyRef Name="idkomentar" />
+          </Key>
+          <Property Name="idkomentar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="tekst" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="datumKreiranja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="datumAzuriranja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="korisnik_idkorisnika" Type="Int32" Nullable="false" />
+          <Property Name="oglas_idoglasa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="korisnik" Relationship="bazaModel.fk_komentar_korisnik" FromRole="komentar" ToRole="korisnik" />
+          <NavigationProperty Name="oglas" Relationship="bazaModel.fk_komentar_oglas" FromRole="komentar" ToRole="oglas" />
+        </EntityType>
+        <EntityType Name="korisnik">
+          <Key>
+            <PropertyRef Name="idkorisnik" />
+          </Key>
+          <Property Name="idkorisnik" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="prezime" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="profil" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="telefon" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="boraviste" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="komentar" Relationship="bazaModel.fk_komentar_korisnik" FromRole="korisnik" ToRole="komentar" />
+          <NavigationProperty Name="poruka" Relationship="bazaModel.fk_poruka_korisnik" FromRole="korisnik" ToRole="poruka" />
+        </EntityType>
+        <EntityType Name="oglas">
+          <Key>
+            <PropertyRef Name="idoglas" />
+          </Key>
+          <Property Name="idoglas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="tekst" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="datumKreiranja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="datumAzuriranja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tutor_idtutor" Type="Int32" Nullable="false" />
+          <Property Name="kategorija_idkategorija" Type="Int32" Nullable="false" />
+          <Property Name="cijena" Type="Int32" Nullable="false" />
+          <Property Name="portret" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="strucnost_idstrucnost" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kategorija" Relationship="bazaModel.fk_oglas_kategorija" FromRole="oglas" ToRole="kategorija" />
+          <NavigationProperty Name="komentar" Relationship="bazaModel.fk_komentar_oglas" FromRole="oglas" ToRole="komentar" />
+          <NavigationProperty Name="strucnost" Relationship="bazaModel.fk_oglas_strucnost" FromRole="oglas" ToRole="strucnost" />
+          <NavigationProperty Name="tutor" Relationship="bazaModel.fk_oglas_tutor" FromRole="oglas" ToRole="tutor" />
+        </EntityType>
+        <EntityType Name="poruka">
+          <Key>
+            <PropertyRef Name="idporuka" />
+          </Key>
+          <Property Name="idporuka" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naslov" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="tekst" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="datum" Type="Int32" Nullable="false" />
+          <Property Name="korisnik_idkorisnik" Type="Int32" Nullable="false" />
+          <Property Name="tutor_idtutor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="korisnik" Relationship="bazaModel.fk_poruka_korisnik" FromRole="poruka" ToRole="korisnik" />
+          <NavigationProperty Name="tutor" Relationship="bazaModel.fk_poruka_tutor" FromRole="poruka" ToRole="tutor" />
+        </EntityType>
+        <EntityType Name="strucnost">
+          <Key>
+            <PropertyRef Name="idstrucnost" />
+          </Key>
+          <Property Name="idstrucnost" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iskustvo" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="oglas" Relationship="bazaModel.fk_oglas_strucnost" FromRole="strucnost" ToRole="oglas" />
+        </EntityType>
+        <EntityType Name="tutor">
+          <Key>
+            <PropertyRef Name="idtutor" />
+          </Key>
+          <Property Name="idtutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="prezime" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="kvalifikacija" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="profil" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="telefon" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="boraviste" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="opis" Type="String" Nullable="false" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="oglas" Relationship="bazaModel.fk_oglas_tutor" FromRole="tutor" ToRole="oglas" />
+          <NavigationProperty Name="poruka" Relationship="bazaModel.fk_poruka_tutor" FromRole="tutor" ToRole="poruka" />
+        </EntityType>
+        <Association Name="fk_oglas_kategorija">
+          <End Role="kategorija" Type="bazaModel.kategorija" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="oglas" Type="bazaModel.oglas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategorija">
+              <PropertyRef Name="idkategorija" />
+            </Principal>
+            <Dependent Role="oglas">
+              <PropertyRef Name="kategorija_idkategorija" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_komentar_korisnik">
+          <End Role="korisnik" Type="bazaModel.korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="komentar" Type="bazaModel.komentar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="korisnik">
+              <PropertyRef Name="idkorisnik" />
+            </Principal>
+            <Dependent Role="komentar">
+              <PropertyRef Name="korisnik_idkorisnika" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_komentar_oglas">
+          <End Role="oglas" Type="bazaModel.oglas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="komentar" Type="bazaModel.komentar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="oglas">
+              <PropertyRef Name="idoglas" />
+            </Principal>
+            <Dependent Role="komentar">
+              <PropertyRef Name="oglas_idoglasa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_poruka_korisnik">
+          <End Role="korisnik" Type="bazaModel.korisnik" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="poruka" Type="bazaModel.poruka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="korisnik">
+              <PropertyRef Name="idkorisnik" />
+            </Principal>
+            <Dependent Role="poruka">
+              <PropertyRef Name="korisnik_idkorisnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_oglas_strucnost">
+          <End Role="strucnost" Type="bazaModel.strucnost" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="oglas" Type="bazaModel.oglas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strucnost">
+              <PropertyRef Name="idstrucnost" />
+            </Principal>
+            <Dependent Role="oglas">
+              <PropertyRef Name="strucnost_idstrucnost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_oglas_tutor">
+          <End Role="tutor" Type="bazaModel.tutor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="oglas" Type="bazaModel.oglas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tutor">
+              <PropertyRef Name="idtutor" />
+            </Principal>
+            <Dependent Role="oglas">
+              <PropertyRef Name="tutor_idtutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_poruka_tutor">
+          <End Role="tutor" Type="bazaModel.tutor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="poruka" Type="bazaModel.poruka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tutor">
+              <PropertyRef Name="idtutor" />
+            </Principal>
+            <Dependent Role="poruka">
+              <PropertyRef Name="tutor_idtutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bazaModelStoreContainer" CdmEntityContainer="bazaEntities">
+          <EntitySetMapping Name="kategorija">
+            <EntityTypeMapping TypeName="bazaModel.kategorija">
+              <MappingFragment StoreEntitySet="kategorija">
+                <ScalarProperty Name="idkategorija" ColumnName="idkategorija" />
+                <ScalarProperty Name="nazivKategorije" ColumnName="nazivKategorije" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="komentar">
+            <EntityTypeMapping TypeName="bazaModel.komentar">
+              <MappingFragment StoreEntitySet="komentar">
+                <ScalarProperty Name="idkomentar" ColumnName="idkomentar" />
+                <ScalarProperty Name="naslov" ColumnName="naslov" />
+                <ScalarProperty Name="tekst" ColumnName="tekst" />
+                <ScalarProperty Name="datumKreiranja" ColumnName="datumKreiranja" />
+                <ScalarProperty Name="datumAzuriranja" ColumnName="datumAzuriranja" />
+                <ScalarProperty Name="korisnik_idkorisnika" ColumnName="korisnik_idkorisnika" />
+                <ScalarProperty Name="oglas_idoglasa" ColumnName="oglas_idoglasa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="korisnik">
+            <EntityTypeMapping TypeName="bazaModel.korisnik">
+              <MappingFragment StoreEntitySet="korisnik">
+                <ScalarProperty Name="idkorisnik" ColumnName="idkorisnik" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="profil" ColumnName="profil" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="boraviste" ColumnName="boraviste" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oglas">
+            <EntityTypeMapping TypeName="bazaModel.oglas">
+              <MappingFragment StoreEntitySet="oglas">
+                <ScalarProperty Name="idoglas" ColumnName="idoglas" />
+                <ScalarProperty Name="naslov" ColumnName="naslov" />
+                <ScalarProperty Name="tekst" ColumnName="tekst" />
+                <ScalarProperty Name="datumKreiranja" ColumnName="datumKreiranja" />
+                <ScalarProperty Name="datumAzuriranja" ColumnName="datumAzuriranja" />
+                <ScalarProperty Name="tutor_idtutor" ColumnName="tutor_idtutor" />
+                <ScalarProperty Name="kategorija_idkategorija" ColumnName="kategorija_idkategorija" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="portret" ColumnName="portret" />
+                <ScalarProperty Name="strucnost_idstrucnost" ColumnName="strucnost_idstrucnost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="poruka">
+            <EntityTypeMapping TypeName="bazaModel.poruka">
+              <MappingFragment StoreEntitySet="poruka">
+                <ScalarProperty Name="idporuka" ColumnName="idporuka" />
+                <ScalarProperty Name="naslov" ColumnName="naslov" />
+                <ScalarProperty Name="tekst" ColumnName="tekst" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="korisnik_idkorisnik" ColumnName="korisnik_idkorisnik" />
+                <ScalarProperty Name="tutor_idtutor" ColumnName="tutor_idtutor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="strucnost">
+            <EntityTypeMapping TypeName="bazaModel.strucnost">
+              <MappingFragment StoreEntitySet="strucnost">
+                <ScalarProperty Name="idstrucnost" ColumnName="idstrucnost" />
+                <ScalarProperty Name="iskustvo" ColumnName="iskustvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tutor">
+            <EntityTypeMapping TypeName="bazaModel.tutor">
+              <MappingFragment StoreEntitySet="tutor">
+                <ScalarProperty Name="idtutor" ColumnName="idtutor" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="kvalifikacija" ColumnName="kvalifikacija" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="profil" ColumnName="profil" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="boraviste" ColumnName="boraviste" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
